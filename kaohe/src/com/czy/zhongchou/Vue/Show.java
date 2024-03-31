@@ -9,10 +9,12 @@ import com.czy.zhongchou.util.DealWithCardId;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+
 public class Show {
     private Scanner sc=new Scanner(System.in);
+    //用来记住登录对象
     private AccountDO accountDO= new AccountDO();
-
+    //展示给用户的登录界面
     public void start() throws SQLException, ClassNotFoundException {
         System.out.println(this.accountDO.getCardId());
         while (true) {
@@ -41,6 +43,7 @@ public class Show {
         }
     }
 
+    //展示给用户登录后的界面
     public void showUserCommand(AccountDO accountDO) throws SQLException, ClassNotFoundException {
         while (true) {
             System.out.println("您可以进行以下操作：");

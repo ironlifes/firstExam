@@ -11,10 +11,9 @@ import java.util.Scanner;
 
 public class AccountController {
 
-    //private AccountService accountService= new AccountService();
-
     private Scanner sc=new Scanner(System.in);
 
+    //系统界面
     public void registerAccount() throws SQLException, ClassNotFoundException {
         System.out.println("==注册界面==");
         AccountDO accountDO=new AccountDO();
@@ -42,6 +41,7 @@ public class AccountController {
                 System.out.println("恭喜您注册成功，您的账号是："+accountDO.getCardId());
                 System.out.println("您的初始余额是1000.0元~");
 
+                //添加用户
                 AccountService accountService= new AccountService();
                 accountService.addAccountDO(accountDO);
                 break;
@@ -52,11 +52,12 @@ public class AccountController {
     }
 
 
+    //登录业务
     public void login() throws SQLException, ClassNotFoundException {
         System.out.println("==用户登录==");
         //验证系统中是否有账号
-        AccountDO loginAccountDO=new AccountDO();
         AccountService accountService= new AccountService();
+        //确保系统中有账号
         if(accountService.searchAccount()==false){
             System.out.println("系统中不存在账号，请先注册~");
             return;
@@ -76,6 +77,7 @@ public class AccountController {
                     String passWord=sc.next();
                     if(passWord.equals(accountDO.getPassWord())){
                         System.out.println("登录成功~");
+                        //返回Show类展示登录后界面
                         Show show=new Show();
                         show.showUserCommand(accountDO);
                         return;

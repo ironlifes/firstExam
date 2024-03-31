@@ -6,8 +6,9 @@ import com.czy.zhongchou.service.AccountService;
 
 import java.sql.SQLException;
 import java.util.Random;
-
+//工具类
 public class DealWithCardId {
+    //获取随机数返回
     public String createCardId() throws SQLException, ClassNotFoundException {
         while (true) {
             String cardId = "";

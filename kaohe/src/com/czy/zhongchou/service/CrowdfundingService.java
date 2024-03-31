@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CrowdfundingService {
+    //创建dao包对象，以方便调用
     CrowdfundingDAO crowdfundingDAO=new CrowdfundingDAO();
     public void addCrowdfunding(CrowdfundingDO crowdfundingDO) throws SQLException, ClassNotFoundException {
         crowdfundingDAO.addCrowdfunding(crowdfundingDO);

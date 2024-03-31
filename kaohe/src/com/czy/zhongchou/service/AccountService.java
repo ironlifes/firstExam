@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.Random;
 
 public class AccountService {
+    //创建dao包，方便后续使用
     private AccountDAO accountDAO= new AccountDAO();
     public void addAccountDO(AccountDO accountDO) throws SQLException, ClassNotFoundException {
         accountDAO.addAccount(accountDO);

@@ -9,6 +9,7 @@ import java.util.List;
 
 public class AccountDAO {
 
+    //在数据库中添加用户
     public void addAccount(AccountDO accountDO) throws SQLException, ClassNotFoundException {
         Connection conn=DBUtill.getConn();
         String sql="insert into t_account(card_id,user_name,pass_word,email,introduction,money) values(?,?,?,?,?,?);";
@@ -23,6 +24,7 @@ public class AccountDAO {
         DBUtill.close(pstmt,conn);
     }
 
+    //在数据库中查询用户
     public AccountDO getData(String cardId) throws ClassNotFoundException, SQLException {
         Connection conn=DBUtill.getConn();
         String sql="select * from t_account where card_id=?;";
@@ -47,6 +49,7 @@ public class AccountDAO {
         }
     }
 
+    //在数据库中查询系统中是否有用户
     public boolean searchAccount() throws ClassNotFoundException, SQLException {
         Connection conn=DBUtill.getConn();
         String sql="select * from t_account;";
