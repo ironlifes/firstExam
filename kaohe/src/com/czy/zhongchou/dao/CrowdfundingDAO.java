@@ -2,6 +2,7 @@ package com.czy.zhongchou.dao;
 
 import com.czy.zhongchou.entity.AccountDO;
 import com.czy.zhongchou.entity.CrowdfundingDO;
+import com.czy.zhongchou.entity.ManageDO;
 import com.czy.zhongchou.util.DBUtill;
 import com.mysql.cj.jdbc.Driver;
 
@@ -13,16 +14,16 @@ import java.util.concurrent.Executor;
 
 public class CrowdfundingDAO {
     //在数据库中添加用户
-    public void addCrowdfunding(CrowdfundingDO crowdfundingDO) throws SQLException, ClassNotFoundException {
+    public void addCrowdfunding(ManageDO manageDO) throws SQLException, ClassNotFoundException {
         Connection conn= DBUtill.getConn();
         String sql="insert into t_crowdfunding(card_id,name,age,sex,reason,money) values(?,?,?,?,?,?);";
         PreparedStatement pstmt=conn.prepareStatement(sql);
-        pstmt.setString(1,crowdfundingDO.getCardId());
-        pstmt.setString(2, crowdfundingDO.getName());
-        pstmt.setInt(3,crowdfundingDO.getAge());
-        pstmt.setString(4,crowdfundingDO.getSex());
-        pstmt.setString(5, crowdfundingDO.getReason());
-        pstmt.setDouble(6,crowdfundingDO.getMoney());
+        pstmt.setString(1,manageDO.getCardId());
+        pstmt.setString(2, manageDO.getName());
+        pstmt.setInt(3,manageDO.getAge());
+        pstmt.setString(4,manageDO.getSex());
+        pstmt.setString(5, manageDO.getReason());
+        pstmt.setDouble(6,manageDO.getMoney());
         pstmt.executeUpdate();
         DBUtill.close(pstmt,conn);
     }

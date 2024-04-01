@@ -1,8 +1,11 @@
 package com.czy.zhongchou.controller;
 
+import com.czy.zhongchou.dao.ManageDAO;
 import com.czy.zhongchou.entity.AccountDO;
 import com.czy.zhongchou.entity.CrowdfundingDO;
+import com.czy.zhongchou.entity.ManageDO;
 import com.czy.zhongchou.service.CrowdfundingService;
+import com.czy.zhongchou.service.ManageService;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,27 +17,29 @@ public class CrowdfundingController {
     private CrowdfundingDO crowdfundingDO1=new CrowdfundingDO();
 
     public void launchCrowdfunding(AccountDO accountDO) throws SQLException, ClassNotFoundException {
-        CrowdfundingDO crowdfundingDO=new CrowdfundingDO();
+        ManageDO manageDO=new ManageDO();
 
-        crowdfundingDO.setCardId(accountDO.getCardId());
+        manageDO.setCardId(accountDO.getCardId());
 
         System.out.println("请输入众筹发起者的姓名：");
-        crowdfundingDO.setName(sc.next());
+        manageDO.setName(sc.next());
 
         System.out.println("请输入众筹发起者的年龄：");
-        crowdfundingDO.setAge(sc.nextInt());
+        manageDO.setAge(sc.nextInt());
 
         System.out.println("请输入众筹发起者的性别：");
-        crowdfundingDO.setSex(sc.next());
+        manageDO.setSex(sc.next());
 
         System.out.println("请输入众筹发起的原因：");
-        crowdfundingDO.setReason(sc.next());
+        manageDO.setReason(sc.next());
 
         System.out.println("请输入众筹的金额：");
-        crowdfundingDO.setMoney(sc.nextDouble());
+        manageDO.setMoney(sc.nextDouble());
 
-        CrowdfundingService crowdfundingService=new CrowdfundingService();
-        crowdfundingService.addCrowdfunding(crowdfundingDO);
+        ManageService manageService=new ManageService();
+        manageService.addCrowdfunding(manageDO);
+//        CrowdfundingService crowdfundingService=new CrowdfundingService();
+//        crowdfundingService.addCrowdfunding(crowdfundingDO);
     }
     //查询众筹信息
     public void searchCrowdfunding(AccountDO accountDO) throws SQLException, ClassNotFoundException {

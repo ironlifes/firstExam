@@ -2,6 +2,7 @@ package com.czy.zhongchou.Vue;
 
 import com.czy.zhongchou.controller.AccountController;
 import com.czy.zhongchou.controller.CrowdfundingController;
+import com.czy.zhongchou.controller.ManageController;
 import com.czy.zhongchou.entity.AccountDO;
 import com.czy.zhongchou.service.AccountService;
 import com.czy.zhongchou.util.DealWithCardId;
@@ -51,7 +52,8 @@ public class Show {
             System.out.println("2、发起众筹");
             System.out.println("3、查看所有众筹信息");
             System.out.println("4、修改个人信息");
-            System.out.println("5、退出登录");
+            System.out.println("5、以管理员身份管理系统");
+            System.out.println("6、退出登录");
             System.out.println("请选择：");
             int command=sc.nextInt();
             switch (command){
@@ -71,6 +73,17 @@ public class Show {
                     crowdfundingController2.update(accountDO);
                     break;
                 case 5:
+                    System.out.println("请输入管理密码：");
+                    String password=sc.next();
+                    if(password.equals("123456")){
+                        System.out.println("密码正确，您可执行以下操作~");
+                        ManageController manageController=new ManageController();
+                        manageController.administrator();
+                    }else {
+                        System.out.println("密码错误，请确认~");
+                    }
+                    break;
+                case 6:
                     System.out.println("退出成功~");
                     return;
                 default:
