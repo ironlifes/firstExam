@@ -39,4 +39,13 @@ public class CrowdfundingService {
     public void updateIntroduction(AccountDO accountDO) throws SQLException, ClassNotFoundException {
         crowdfundingDAO.updateInrtoduction(accountDO);
     }
+
+    public void deleteCrowdfundindByAdministrator(int number) throws SQLException, ClassNotFoundException {
+        crowdfundingDAO.deleteCrowdfundingByAdministrator(number);
+    }
+
+    public ArrayList<CrowdfundingDO> searchZero() throws SQLException, ClassNotFoundException {
+        ArrayList<CrowdfundingDO> crowdfundingDOS=crowdfundingDAO.searchZero();
+        return crowdfundingDOS;
+    }
 }

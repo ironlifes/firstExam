@@ -4,8 +4,14 @@ import java.sql.SQLException;
 
 //≤‚ ‘¿‡
 public class Test {
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+    public static void main(String[] args){
         Show show=new Show();
-        show.start();
+        try {
+            show.start();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

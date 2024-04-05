@@ -39,6 +39,7 @@ public class ManageDAO {
             String sex=rs.getString("sex");
             String reason=rs.getString("reason");
             double money=rs.getDouble("money");
+            int number=rs.getInt("number");
 
             //封装对象，以便后续直接使用
             ManageDO manageDO=new ManageDO();
@@ -48,6 +49,7 @@ public class ManageDAO {
             manageDO.setSex(sex);
             manageDO.setReason(reason);
             manageDO.setMoney(money);
+            manageDO.setNumber(number);
             manageDOS.add(manageDO);
         }
         rs.close();
@@ -57,9 +59,9 @@ public class ManageDAO {
 
     public void deleteCrowdfunding(ManageDO manageDO) throws SQLException, ClassNotFoundException {
         Connection conn=DBUtill.getConn();
-        String sql="delete from t_managecrowdfunding where name=?";
+        String sql="delete from t_managecrowdfunding where number=?";
         PreparedStatement pstmt=conn.prepareStatement(sql);
-        pstmt.setString(1,manageDO.getName());
+        pstmt.setInt(1,manageDO.getNumber());
         pstmt.executeUpdate();
         DBUtill.close(pstmt,conn);
     }

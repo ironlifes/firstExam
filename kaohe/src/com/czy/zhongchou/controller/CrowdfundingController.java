@@ -4,6 +4,7 @@ import com.czy.zhongchou.dao.ManageDAO;
 import com.czy.zhongchou.entity.AccountDO;
 import com.czy.zhongchou.entity.CrowdfundingDO;
 import com.czy.zhongchou.entity.ManageDO;
+import com.czy.zhongchou.service.CommentService;
 import com.czy.zhongchou.service.CrowdfundingService;
 import com.czy.zhongchou.service.ManageService;
 
@@ -38,14 +39,13 @@ public class CrowdfundingController {
 
         ManageService manageService=new ManageService();
         manageService.addCrowdfunding(manageDO);
-//        CrowdfundingService crowdfundingService=new CrowdfundingService();
-//        crowdfundingService.addCrowdfunding(crowdfundingDO);
+
     }
     //查询众筹信息
     public void searchCrowdfunding(AccountDO accountDO) throws SQLException, ClassNotFoundException {
+        //删除已筹齐的众筹
+        delete();
         CrowdfundingService crowdfundingService=new CrowdfundingService();
-        //删除已筹齐的众筹信息
-        crowdfundingService.deleteCrowdfunding();
         ArrayList<CrowdfundingDO> crowdfundingDOS=crowdfundingService.showCrowdfunding();
         //确保有众筹信息再展示
         if (crowdfundingDOS.isEmpty()) {
@@ -56,10 +56,11 @@ public class CrowdfundingController {
             System.out.println("各众筹者部分信息如下：");
             for (int i = 0; i < crowdfundingDOS.size(); i++) {
                 CrowdfundingDO crowdfundingDO = crowdfundingDOS.get(i);
-                System.out.println("===第" + (i + 1) + "位===");
+                System.out.println("序号："+crowdfundingDO.getNumber());
                 System.out.println("姓名：" + crowdfundingDO.getName());
                 System.out.println("年龄：" + crowdfundingDO.getAge());
                 System.out.println("性别：" + crowdfundingDO.getSex());
+                System.out.println();
             }
             while (true) {
                 System.out.println("1、选择众筹者，以查看详细信息");
@@ -68,7 +69,7 @@ public class CrowdfundingController {
                 switch (rs){
                     case "1":
                         showDetails(crowdfundingDOS,accountDO);
-                        break;
+                        return;
                     case "2":
                         return;
                     default:
@@ -81,11 +82,11 @@ public class CrowdfundingController {
 
     //展示选中的众筹对象信息
     private void showDetails(ArrayList<CrowdfundingDO> crowdfundingDOS,AccountDO accountDO) throws SQLException, ClassNotFoundException {
-        System.out.println("请输入众筹者姓名：");
-        String name=sc.next();
+        System.out.println("请输入众筹者的序号：");
+        int number=sc.nextInt();
         for (int i = 0; i < crowdfundingDOS.size(); i++) {
             CrowdfundingDO crowdfundingDO = crowdfundingDOS.get(i);
-            if (name.equals(crowdfundingDO.getName())) {
+            if (number==crowdfundingDO.getNumber()) {
                 System.out.println("姓名：" + crowdfundingDO.getName());
                 System.out.println("年龄：" + crowdfundingDO.getAge());
                 System.out.println("性别：" + crowdfundingDO.getSex());
@@ -104,17 +105,24 @@ public class CrowdfundingController {
     private void choice(ArrayList<CrowdfundingDO> crowdfundingDOS,AccountDO accountDO) throws SQLException, ClassNotFoundException {
         while (true) {
             System.out.println("请选择：");
-            System.out.println("1、参与评论");
-            System.out.println("2、进行捐款");
-            System.out.println("3、返回上一页");
-            String rs2 = sc.next();
-            switch (rs2) {
-                case "1":
+            System.out.println("1、查看评论");
+            System.out.println("2、参与评论");
+            System.out.println("3、进行捐款");
+            System.out.println("4、返回上一页");
+            int command= sc.nextInt();
+            switch (command) {
+                case 1:
+                    CommentController commentController=new CommentController();
+                    commentController.showComment(crowdfundingDO1);
                     break;
-                case "2":
+                case 2:
+                    CommentController commentController1=new CommentController();
+                    commentController1.addComment(accountDO,crowdfundingDO1);
+                    break;
+                case 3:
                     donate(crowdfundingDOS, crowdfundingDO1,accountDO);
                     return;
-                case "3":
+                case 4:
                     return;
                 default:
                     System.out.println("输入有误，请确认~");
@@ -200,6 +208,20 @@ public class CrowdfundingController {
         System.out.println("修改成功~");
         CrowdfundingService crowdfundingService=new CrowdfundingService();
         crowdfundingService.updateIntroduction(accountDO);
+    }
+    //删除已筹齐的众筹
+    private void delete() throws SQLException, ClassNotFoundException {
+        CrowdfundingService crowdfundingService=new CrowdfundingService();
+        //获取已筹齐的众筹编号
+        ArrayList<CrowdfundingDO> crowdfundingDOS1=crowdfundingService.searchZero();
+        //删除子表评论表中评论
+        for (int i = 0; i < crowdfundingDOS1.size(); i++) {
+            CrowdfundingDO crowdfundingDO=crowdfundingDOS1.get(i);
+            CommentService commentService=new CommentService();
+            commentService.deleteComment(crowdfundingDO.getNumber());
+        }
+        //在父表众筹表中删除
+        crowdfundingService.deleteCrowdfunding();
     }
 }
 

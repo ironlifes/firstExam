@@ -7,17 +7,19 @@ public class ManageDO {
     private String sex;
     private String reason;
     private double money;
+    private int number;
 
     public ManageDO() {
     }
 
-    public ManageDO(String cardId, String name, int age, String sex, String reason, double money) {
+    public ManageDO(String cardId, String name, int age, String sex, String reason, double money, int number) {
         this.cardId = cardId;
         this.name = name;
         this.age = age;
         this.sex = sex;
         this.reason = reason;
         this.money = money;
+        this.number = number;
     }
 
     public String getCardId() {
@@ -66,5 +68,13 @@ public class ManageDO {
 
     public void setMoney(double money) {
         this.money = money;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 }

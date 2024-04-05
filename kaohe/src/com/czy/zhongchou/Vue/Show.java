@@ -14,10 +14,10 @@ import java.util.Scanner;
 public class Show {
     private Scanner sc=new Scanner(System.in);
     //用来记住登录对象
-    private AccountDO accountDO= new AccountDO();
+    //private AccountDO accountDO= new AccountDO();
     //展示给用户的登录界面
     public void start() throws SQLException, ClassNotFoundException {
-        System.out.println(this.accountDO.getCardId());
+        //System.out.println(this.accountDO.getCardId());
         while (true) {
             System.out.println("==欢迎进入众筹系统==");
             System.out.println("1、登录");
@@ -76,7 +76,7 @@ public class Show {
                     System.out.println("请输入管理密码：");
                     String password=sc.next();
                     if(password.equals("123456")){
-                        System.out.println("密码正确，您可执行以下操作~");
+                        System.out.println("密码正确~");
                         ManageController manageController=new ManageController();
                         manageController.administrator();
                     }else {

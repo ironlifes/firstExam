@@ -42,6 +42,7 @@ public class CrowdfundingDAO {
             String sex=rs.getString("sex");
             String reason=rs.getString("reason");
             double money=rs.getDouble("money");
+            int number=rs.getInt("number");
 
             //封装对象，以便后续直接使用
             CrowdfundingDO crowdfundingDO=new CrowdfundingDO();
@@ -51,6 +52,7 @@ public class CrowdfundingDAO {
             crowdfundingDO.setSex(sex);
             crowdfundingDO.setReason(reason);
             crowdfundingDO.setMoney(money);
+            crowdfundingDO.setNumber(number);
             crowdfundingDOS.add(crowdfundingDO);
         }
         rs.close();
@@ -61,25 +63,30 @@ public class CrowdfundingDAO {
     //在数据库中更新捐款后的余额
     public void updateDonate(AccountDO accountDO, double money, CrowdfundingDO crowdfundingDO) throws ClassNotFoundException, SQLException {
         Connection conn=DBUtill.getConn();
+        //关闭自动提交
+        conn.setAutoCommit(false);
         String sql1="update t_crowdfunding set money=money-? where card_id=?;";
         PreparedStatement pstmt1=conn.prepareStatement(sql1);
         pstmt1.setDouble(1,money);
         pstmt1.setString(2,crowdfundingDO.getCardId());
         pstmt1.executeUpdate();
-        pstmt1.close();
 
         String sql2="update t_account set money=money-? where card_id=?;";
         PreparedStatement pstmt2=conn.prepareStatement(sql2);
         pstmt2.setDouble(1,money);
         pstmt2.setString(2,accountDO.getCardId());
         pstmt2.executeUpdate();
-        pstmt2.close();
 
         String sql3="update t_account set money=money+? where card_id=?;";
         PreparedStatement pstmt3=conn.prepareStatement(sql3);
         pstmt3.setDouble(1,money);
         pstmt3.setString(2,crowdfundingDO.getCardId());
         pstmt3.executeUpdate();
+        //手动提交
+        conn.commit();
+
+        pstmt1.close();
+        pstmt2.close();
         pstmt3.close();
         DBUtill.closeConn(conn);
 
@@ -129,5 +136,34 @@ public class CrowdfundingDAO {
         pstmt.executeUpdate();
 
         DBUtill.close(pstmt,conn);
+    }
+
+    //以管理员身份在数据库中删除众筹信息
+    public void deleteCrowdfundingByAdministrator(int number) throws SQLException, ClassNotFoundException {
+        Connection conn=DBUtill.getConn();
+        String sql="delete from t_crowdfunding where number=?;";
+        PreparedStatement pstmt=conn.prepareStatement(sql);
+        pstmt.setInt(1,number);
+        pstmt.executeUpdate();
+
+        DBUtill.close(pstmt,conn);
+    }
+
+    public ArrayList<CrowdfundingDO> searchZero() throws SQLException, ClassNotFoundException {
+        ArrayList<CrowdfundingDO> crowdfundingDOS=new ArrayList<>();
+        Connection conn=DBUtill.getConn();
+        String sql="select * from t_crowdfunding where money=0;";
+        PreparedStatement pstmt=conn.prepareStatement(sql);
+        ResultSet rs=pstmt.executeQuery();
+        while(rs.next()){
+            int number=rs.getInt("number");
+
+            CrowdfundingDO crowdfundingDO=new CrowdfundingDO();
+            crowdfundingDO.setNumber(number);
+            crowdfundingDOS.add(crowdfundingDO);
+        }
+        rs.close();
+        DBUtill.close(pstmt,conn);
+        return crowdfundingDOS;
     }
 }
