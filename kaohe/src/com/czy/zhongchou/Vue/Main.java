@@ -4,16 +4,13 @@ import com.czy.zhongchou.entity.AccountDO;
 
 import java.sql.SQLException;
 
-//≤‚ ‘¿‡
+//ø™ º
 public class Main {
-    public static void main(String[] args){
-
-        Show show=new Show();
+    public static void main(String[] args) {
+        Show show = new Show();
         try {
             show.start();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

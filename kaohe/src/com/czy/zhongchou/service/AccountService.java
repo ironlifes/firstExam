@@ -11,11 +11,11 @@ import java.util.Random;
 public class AccountService {
     //创建dao包，方便后续使用
     private AccountDAO accountDAO= new AccountDAO();
-    public void addAccountDO(AccountDO accountDO) throws SQLException, ClassNotFoundException {
+    public void addAccountDO(AccountDO accountDO) throws Exception {
         accountDAO.addAccount(accountDO);
     }
 
-    public Boolean searchAccount() throws SQLException, ClassNotFoundException {
+    public Boolean searchAccount() throws Exception {
         if(accountDAO.searchAccount()){
             return true;
         }else {
@@ -23,7 +23,7 @@ public class AccountService {
         }
     }
 
-    public AccountDO getData(String cardId) throws SQLException, ClassNotFoundException {
+    public AccountDO getData(String cardId) throws Exception {
         AccountDO accountDO=accountDAO.getData(cardId);
         return accountDO;
     }

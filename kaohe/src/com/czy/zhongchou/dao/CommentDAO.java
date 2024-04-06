@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class CommentDAO {
     //在数据库中添加评论
-    public void addComment(CrowdfundingDO crowdfundingDO,String comment) throws SQLException, ClassNotFoundException {
+    public void addComment(CrowdfundingDO crowdfundingDO,String comment) throws Exception {
         Connection conn=DBUtill.getConn();
         String sql="insert into t_comment(name,comment,crowdfunding_number) values (?,?,?);";
         PreparedStatement pstmt=conn.prepareStatement(sql);
@@ -26,7 +26,7 @@ public class CommentDAO {
     }
 
     //在数据库中查询评论
-    public ArrayList<CommentDO> showComment(CrowdfundingDO crowdfundingDO) throws SQLException, ClassNotFoundException {
+    public ArrayList<CommentDO> showComment(CrowdfundingDO crowdfundingDO) throws Exception {
         ArrayList<CommentDO> commentDOS=new ArrayList<>();
         Connection conn=DBUtill.getConn();
         String sql="select * from t_comment where crowdfunding_number=?";
@@ -42,13 +42,12 @@ public class CommentDAO {
             commentDO.setComment(comment);
             commentDOS.add(commentDO);
         }
-        rs.close();
-        DBUtill.close(pstmt,conn);
+        DBUtill.close(rs,pstmt,conn);
         return commentDOS;
     }
 
     //在数据库中删除评论
-    public void deleteComment(int number) throws SQLException, ClassNotFoundException {
+    public void deleteComment(int number) throws Exception {
         Connection conn=DBUtill.getConn();
         String sql="delete from t_comment where crowdfunding_number=?;";
         PreparedStatement pstmt=conn.prepareStatement(sql);

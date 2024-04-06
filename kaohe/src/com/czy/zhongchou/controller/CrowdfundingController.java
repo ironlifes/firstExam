@@ -17,7 +17,7 @@ public class CrowdfundingController {
     private CrowdfundingDO crowdfundingDO1=new CrowdfundingDO();
     CrowdfundingService crowdfundingService=new CrowdfundingService();
 
-    public void launchCrowdfunding() throws SQLException, ClassNotFoundException {
+    public void launchCrowdfunding() throws Exception {
         ManageDO manageDO=new ManageDO();
 
         manageDO.setCardId(AccountDO.accountDO.getCardId());
@@ -42,7 +42,7 @@ public class CrowdfundingController {
 
     }
     //查询众筹信息
-    public void searchCrowdfunding() throws SQLException, ClassNotFoundException {
+    public void searchCrowdfunding() throws Exception {
         //删除已筹齐的众筹
         delete();
         ArrayList<CrowdfundingDO> crowdfundingDOS=crowdfundingService.showCrowdfunding();
@@ -80,7 +80,7 @@ public class CrowdfundingController {
     }
 
     //展示选中的众筹对象信息
-    private void showDetails(ArrayList<CrowdfundingDO> crowdfundingDOS) throws SQLException, ClassNotFoundException {
+    private void showDetails(ArrayList<CrowdfundingDO> crowdfundingDOS) throws Exception {
         System.out.println("请输入众筹者的序号：");
         int number=sc.nextInt();
         for (int i = 0; i < crowdfundingDOS.size(); i++) {
@@ -101,7 +101,7 @@ public class CrowdfundingController {
     }
 
     //用户选择对众筹者进行的操作
-    private void choice(ArrayList<CrowdfundingDO> crowdfundingDOS) throws SQLException, ClassNotFoundException {
+    private void choice(ArrayList<CrowdfundingDO> crowdfundingDOS) throws Exception {
         while (true) {
             System.out.println("请选择：");
             System.out.println("1、查看评论");
@@ -131,7 +131,7 @@ public class CrowdfundingController {
     }
 
     //用户捐款
-    private void donate(ArrayList<CrowdfundingDO> crowdfundingDOS,CrowdfundingDO crowdfundingDO) throws SQLException, ClassNotFoundException {
+    private void donate(ArrayList<CrowdfundingDO> crowdfundingDOS,CrowdfundingDO crowdfundingDO) throws Exception {
         while (true) {
             System.out.println("请输入捐款金额：");
             double money=sc.nextDouble();
@@ -156,7 +156,7 @@ public class CrowdfundingController {
     }
 
     //修改个人信息
-    public void update() throws SQLException, ClassNotFoundException {
+    public void update() throws Exception {
         System.out.println("请输入您要修改的信息：");
         System.out.println("1、姓名");
         System.out.println("2、邮箱");
@@ -179,7 +179,7 @@ public class CrowdfundingController {
     }
 
     //修改姓名
-    private void updateUserName() throws SQLException, ClassNotFoundException {
+    private void updateUserName() throws Exception {
         System.out.println("请输入您的新姓名：");
         String name=sc.next();
         AccountDO.accountDO.setUserName(name);
@@ -188,7 +188,7 @@ public class CrowdfundingController {
     }
 
     //修改邮箱
-    private void updateEmail() throws SQLException, ClassNotFoundException {
+    private void updateEmail() throws Exception {
         System.out.println("请输入您的新邮箱：");
         String email=sc.next();
         AccountDO.accountDO.setEmail(email);
@@ -197,7 +197,7 @@ public class CrowdfundingController {
     }
 
     //修改个人介绍
-    private void updateIntroduction() throws SQLException, ClassNotFoundException {
+    private void updateIntroduction() throws Exception {
         System.out.println("请输入您的新个人介绍：");
         String introduction=sc.next();
         AccountDO.accountDO.setIntroduction(introduction);
@@ -205,7 +205,7 @@ public class CrowdfundingController {
         crowdfundingService.updateIntroduction();
     }
     //删除已筹齐的众筹
-    private void delete() throws SQLException, ClassNotFoundException {
+    private void delete() throws Exception {
         //获取已筹齐的众筹编号
         ArrayList<CrowdfundingDO> crowdfundingDOS1=crowdfundingService.searchZero();
         //删除子表评论表中评论

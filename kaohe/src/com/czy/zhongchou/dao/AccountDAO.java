@@ -10,7 +10,7 @@ import java.util.List;
 public class AccountDAO {
 
     //在数据库中添加用户
-    public void addAccount(AccountDO accountDO) throws SQLException, ClassNotFoundException {
+    public void addAccount(AccountDO accountDO) throws Exception {
         Connection conn=DBUtill.getConn();
         String sql="insert into t_account(card_id,user_name,pass_word,email,introduction,money) values(?,?,?,?,?,?);";
         PreparedStatement pstmt=conn.prepareStatement(sql);
@@ -25,7 +25,7 @@ public class AccountDAO {
     }
 
     //在数据库中查询用户
-    public AccountDO getData(String cardId) throws ClassNotFoundException, SQLException {
+    public AccountDO getData(String cardId) throws Exception {
         Connection conn=DBUtill.getConn();
         String sql="select * from t_account where card_id=?;";
         PreparedStatement pstmt=conn.prepareStatement(sql);
@@ -39,29 +39,25 @@ public class AccountDAO {
             accountDO.setEmail(rs.getString("email"));
             accountDO.setIntroduction(rs.getString("introduction"));
             accountDO.setMoney(rs.getDouble("money"));
-            rs.close();
-            DBUtill.close(pstmt,conn);
+            DBUtill.close(rs,pstmt,conn);
             return accountDO;
         }else {
-            rs.close();
-            DBUtill.close(pstmt,conn);
+            DBUtill.close(rs,pstmt,conn);
             return null;
         }
     }
 
     //在数据库中查询系统中是否有用户
-    public boolean searchAccount() throws ClassNotFoundException, SQLException {
+    public boolean searchAccount() throws Exception {
         Connection conn=DBUtill.getConn();
         String sql="select * from t_account;";
         PreparedStatement pstmt=conn.prepareStatement(sql);
         ResultSet rs= pstmt.executeQuery();
         if(rs.next()){
-            rs.close();
-            DBUtill.close(pstmt,conn);
+            DBUtill.close(rs,pstmt,conn);
             return true;
         }else{
-            rs.close();
-            DBUtill.close(pstmt,conn);
+            DBUtill.close(rs,pstmt,conn);
             return false;
         }
     }

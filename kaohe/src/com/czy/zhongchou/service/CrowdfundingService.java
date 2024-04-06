@@ -10,40 +10,40 @@ import java.util.ArrayList;
 public class CrowdfundingService {
     //创建dao包对象，以方便调用
     CrowdfundingDAO crowdfundingDAO=new CrowdfundingDAO();
-    public void addCrowdfunding(ManageDO manageDO) throws SQLException, ClassNotFoundException {
+    public void addCrowdfunding(ManageDO manageDO) throws Exception {
         crowdfundingDAO.addCrowdfunding(manageDO);
     }
 
-    public ArrayList<CrowdfundingDO> showCrowdfunding() throws SQLException, ClassNotFoundException {
+    public ArrayList<CrowdfundingDO> showCrowdfunding() throws Exception {
         ArrayList<CrowdfundingDO> crowdfundingDOS=crowdfundingDAO.showCrowdfunding();
         return crowdfundingDOS;
     }
 
-    public void updateDonate(double money, CrowdfundingDO crowdfundingDO) throws SQLException, ClassNotFoundException {
+    public void updateDonate(double money, CrowdfundingDO crowdfundingDO) throws Exception {
         crowdfundingDAO.updateDonate(money,crowdfundingDO);
     }
 
-    public void deleteCrowdfunding() throws SQLException, ClassNotFoundException {
+    public void deleteCrowdfunding() throws Exception {
         crowdfundingDAO.deleteCrowdfunding();
     }
 
-    public void updateUserName() throws SQLException, ClassNotFoundException {
+    public void updateUserName() throws Exception {
         crowdfundingDAO.updateUsername();
     }
 
-    public void updateEmail() throws SQLException, ClassNotFoundException {
+    public void updateEmail() throws Exception {
         crowdfundingDAO.updateEamil();
     }
 
-    public void updateIntroduction() throws SQLException, ClassNotFoundException {
+    public void updateIntroduction() throws Exception {
         crowdfundingDAO.updateInrtoduction();
     }
 
-    public void deleteCrowdfundindByAdministrator(int number) throws SQLException, ClassNotFoundException {
+    public void deleteCrowdfundindByAdministrator(int number) throws Exception {
         crowdfundingDAO.deleteCrowdfundingByAdministrator(number);
     }
 
-    public ArrayList<CrowdfundingDO> searchZero() throws SQLException, ClassNotFoundException {
+    public ArrayList<CrowdfundingDO> searchZero() throws Exception {
         ArrayList<CrowdfundingDO> crowdfundingDOS=crowdfundingDAO.searchZero();
         return crowdfundingDOS;
     }

@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class ManageController {
     Scanner sc=new Scanner(System.in);
     //管理员界面
-    public void administrator() throws SQLException, ClassNotFoundException {
+    public void administrator() throws Exception {
         while (true) {
             System.out.println("您可进行以下操作：");
             System.out.println("1、查看未审核的众筹");
@@ -37,7 +37,7 @@ public class ManageController {
     }
 
     //展示未审核通过的众筹信息
-    private void showUndoCrowdfunding() throws SQLException, ClassNotFoundException {
+    private void showUndoCrowdfunding() throws Exception {
         ManageService manageService=new ManageService();
         ArrayList<ManageDO> manageDOS= manageService.showUndoCrowdfunding();
         //确保数据库中有对象
@@ -61,7 +61,7 @@ public class ManageController {
     }
 
     //审核界面
-    private void firstChoice(ArrayList<ManageDO> manageDOS) throws SQLException, ClassNotFoundException {
+    private void firstChoice(ArrayList<ManageDO> manageDOS) throws Exception {
         while (true) {
             System.out.println("请选择：");
             System.out.println("1、选择通过的众筹");
@@ -94,7 +94,7 @@ public class ManageController {
     }
 
     //管理员身份查询众筹信息
-    private void showAllCrowdfunding() throws SQLException, ClassNotFoundException {
+    private void showAllCrowdfunding() throws Exception {
         CrowdfundingService crowdfundingService=new CrowdfundingService();
         //删除已筹齐的众筹信息
         //获取已筹齐的众筹编号
@@ -127,7 +127,7 @@ public class ManageController {
     }
 
     //撤销众筹
-    private void secondChoice() throws SQLException, ClassNotFoundException {
+    private void secondChoice() throws Exception {
         while (true) {
             System.out.println("请选择：");
             System.out.println("1、撤销某个众筹");

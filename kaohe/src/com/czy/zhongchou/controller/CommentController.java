@@ -14,7 +14,7 @@ public class CommentController {
     CommentService commentService=new CommentService();
 
     //添加评论
-    public void addComment(CrowdfundingDO crowdfundingDO) throws SQLException, ClassNotFoundException {
+    public void addComment(CrowdfundingDO crowdfundingDO) throws Exception {
         System.out.println("请输入您的评论：");
         String comment=sc.next();
         commentService.addComment(crowdfundingDO,comment);
@@ -23,7 +23,7 @@ public class CommentController {
     }
 
     //展示评论
-    public void showComment(CrowdfundingDO crowdfundingDO) throws SQLException, ClassNotFoundException {
+    public void showComment(CrowdfundingDO crowdfundingDO) throws Exception {
         ArrayList<CommentDO> commentDOS=commentService.showComment(crowdfundingDO);
         if (commentDOS.isEmpty()) {
             System.out.println("目前还没有任何评论~");

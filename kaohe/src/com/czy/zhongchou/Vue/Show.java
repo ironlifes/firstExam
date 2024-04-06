@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class Show {
     private Scanner sc=new Scanner(System.in);
     //展示给用户的登录界面
-    public void start() throws SQLException, ClassNotFoundException {
+    public void start() throws Exception {
         while (true) {
             System.out.println("==欢迎进入众筹系统==");
             System.out.println("1、登录");
@@ -40,7 +40,7 @@ public class Show {
     }
 
     //展示给用户登录后的界面
-    public void showUserCommand(AccountDO accountDO) throws SQLException, ClassNotFoundException {
+    public void showUserCommand(AccountDO accountDO) throws Exception {
         AccountDO.accountDO=accountDO;
         while (true) {
             System.out.println("您可以进行以下操作：");

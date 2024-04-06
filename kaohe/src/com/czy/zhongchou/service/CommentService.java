@@ -10,16 +10,16 @@ import java.util.ArrayList;
 
 public class CommentService {
     CommentDAO commentDAO=new CommentDAO();
-    public void addComment(CrowdfundingDO crowdfundingDO,String comment) throws SQLException, ClassNotFoundException {
+    public void addComment(CrowdfundingDO crowdfundingDO,String comment) throws Exception {
         commentDAO.addComment(crowdfundingDO,comment);
     }
 
-    public ArrayList<CommentDO> showComment(CrowdfundingDO crowdfundingDO) throws SQLException, ClassNotFoundException {
+    public ArrayList<CommentDO> showComment(CrowdfundingDO crowdfundingDO) throws Exception {
         ArrayList<CommentDO> commentDOS=commentDAO.showComment(crowdfundingDO);
         return commentDOS;
     }
 
-    public void deleteComment(int number) throws SQLException, ClassNotFoundException {
+    public void deleteComment(int number) throws Exception {
         commentDAO.deleteComment(number);
     }
 }

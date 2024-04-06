@@ -13,7 +13,7 @@ import java.util.ArrayList;
 //操作用户发起但是还未经审核的众筹
 public class ManageDAO {
 
-    public void addCrowdfunding(ManageDO manageDO) throws SQLException, ClassNotFoundException {
+    public void addCrowdfunding(ManageDO manageDO) throws Exception {
         Connection conn= DBUtill.getConn();
         String sql="insert into t_managecrowdfunding(card_id,name,age,sex,reason,money) values(?,?,?,?,?,?);";
         PreparedStatement pstmt=conn.prepareStatement(sql);
@@ -27,7 +27,7 @@ public class ManageDAO {
         DBUtill.close(pstmt,conn);
     }
 
-    public ArrayList<ManageDO> showUndoCrowdfunding() throws ClassNotFoundException, SQLException {
+    public ArrayList<ManageDO> showUndoCrowdfunding() throws Exception {
         ArrayList<ManageDO> manageDOS=new ArrayList<>();
         Connection conn=DBUtill.getConn();
         String sql="select * from t_managecrowdfunding;";
@@ -53,12 +53,11 @@ public class ManageDAO {
             manageDO.setNumber(number);
             manageDOS.add(manageDO);
         }
-        rs.close();
-        DBUtill.close(pstmt,conn);
+        DBUtill.close(rs,pstmt,conn);
         return manageDOS;
     }
 
-    public void deleteCrowdfunding(ManageDO manageDO) throws SQLException, ClassNotFoundException {
+    public void deleteCrowdfunding(ManageDO manageDO) throws Exception {
         Connection conn=DBUtill.getConn();
         String sql="delete from t_managecrowdfunding where number=?";
         PreparedStatement pstmt=conn.prepareStatement(sql);

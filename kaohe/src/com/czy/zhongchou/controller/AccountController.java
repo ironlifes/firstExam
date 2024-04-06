@@ -13,7 +13,7 @@ public class AccountController {
     AccountService accountService= new AccountService();
     private Scanner sc=new Scanner(System.in);
     //系统界面
-    public void registerAccount() throws SQLException, ClassNotFoundException {
+    public void registerAccount() throws Exception {
         System.out.println("==注册界面==");
         AccountDO accountDO=new AccountDO();
 
@@ -49,7 +49,7 @@ public class AccountController {
 
 
     //登录业务
-    public void login() throws SQLException, ClassNotFoundException {
+    public void login() throws Exception {
         System.out.println("==用户登录==");
         //确保系统中有账号
         if(accountService.searchAccount()==false){

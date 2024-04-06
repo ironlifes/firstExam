@@ -9,16 +9,16 @@ import java.util.ArrayList;
 
 public class ManageService {
     ManageDAO manageDAO=new ManageDAO();
-    public void addCrowdfunding(ManageDO manageDO) throws SQLException, ClassNotFoundException {
+    public void addCrowdfunding(ManageDO manageDO) throws Exception {
         manageDAO.addCrowdfunding(manageDO);
     }
 
-    public ArrayList<ManageDO> showUndoCrowdfunding() throws SQLException, ClassNotFoundException {
+    public ArrayList<ManageDO> showUndoCrowdfunding() throws Exception {
         ArrayList<ManageDO> manageDOS=manageDAO.showUndoCrowdfunding();
         return manageDOS;
     }
 
-    public void deleteCrowdfunding(ManageDO manageDO) throws SQLException, ClassNotFoundException {
+    public void deleteCrowdfunding(ManageDO manageDO) throws Exception {
         manageDAO.deleteCrowdfunding(manageDO);
     }
 }
