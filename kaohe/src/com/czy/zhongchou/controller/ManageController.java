@@ -93,6 +93,7 @@ public class ManageController {
         }
     }
 
+    //管理员身份查询众筹信息
     private void showAllCrowdfunding() throws SQLException, ClassNotFoundException {
         CrowdfundingService crowdfundingService=new CrowdfundingService();
         //删除已筹齐的众筹信息
@@ -125,6 +126,7 @@ public class ManageController {
         secondChoice();
     }
 
+    //撤销众筹
     private void secondChoice() throws SQLException, ClassNotFoundException {
         while (true) {
             System.out.println("请选择：");

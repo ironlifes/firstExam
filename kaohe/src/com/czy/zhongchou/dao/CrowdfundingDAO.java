@@ -4,13 +4,9 @@ import com.czy.zhongchou.entity.AccountDO;
 import com.czy.zhongchou.entity.CrowdfundingDO;
 import com.czy.zhongchou.entity.ManageDO;
 import com.czy.zhongchou.util.DBUtill;
-import com.mysql.cj.jdbc.Driver;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.Properties;
-import java.util.concurrent.Executor;
 
 public class CrowdfundingDAO {
     //在数据库中添加用户
@@ -61,7 +57,7 @@ public class CrowdfundingDAO {
     }
 
     //在数据库中更新捐款后的余额
-    public void updateDonate(AccountDO accountDO, double money, CrowdfundingDO crowdfundingDO) throws ClassNotFoundException, SQLException {
+    public void updateDonate(double money, CrowdfundingDO crowdfundingDO) throws ClassNotFoundException, SQLException {
         Connection conn=DBUtill.getConn();
         //关闭自动提交
         conn.setAutoCommit(false);
@@ -74,7 +70,7 @@ public class CrowdfundingDAO {
         String sql2="update t_account set money=money-? where card_id=?;";
         PreparedStatement pstmt2=conn.prepareStatement(sql2);
         pstmt2.setDouble(1,money);
-        pstmt2.setString(2,accountDO.getCardId());
+        pstmt2.setString(2, AccountDO.accountDO.getCardId());
         pstmt2.executeUpdate();
 
         String sql3="update t_account set money=money+? where card_id=?;";
@@ -90,7 +86,7 @@ public class CrowdfundingDAO {
         pstmt3.close();
         DBUtill.closeConn(conn);
 
-        accountDO.setMoney(accountDO.getMoney()-money);
+        AccountDO.accountDO.setMoney(AccountDO.accountDO.getMoney()-money);
     }
 
     //在数据库中删除已筹齐的众筹
@@ -103,36 +99,36 @@ public class CrowdfundingDAO {
     }
 
     //在数据库中修改姓名
-    public void updateUsername(AccountDO accountDO) throws ClassNotFoundException, SQLException {
+    public void updateUsername() throws ClassNotFoundException, SQLException {
         Connection conn=DBUtill.getConn();
         String sql="update t_account set user_name=? where card_id=?;";
         PreparedStatement pstmt=conn.prepareStatement(sql);
-        pstmt.setString(1,accountDO.getUserName());
-        pstmt.setString(2,accountDO.getCardId());
+        pstmt.setString(1,AccountDO.accountDO.getUserName());
+        pstmt.setString(2,AccountDO.accountDO.getCardId());
         pstmt.executeUpdate();
 
         DBUtill.close(pstmt,conn);
     }
 
     //在数据库中修改邮箱
-    public void updateEamil(AccountDO accountDO) throws ClassNotFoundException, SQLException {
+    public void updateEamil() throws ClassNotFoundException, SQLException {
         Connection conn=DBUtill.getConn();
         String sql="update t_account set email=? where card_id=?;";
         PreparedStatement pstmt=conn.prepareStatement(sql);
-        pstmt.setString(1,accountDO.getEmail());
-        pstmt.setString(2,accountDO.getCardId());
+        pstmt.setString(1,AccountDO.accountDO.getEmail());
+        pstmt.setString(2,AccountDO.accountDO.getCardId());
         pstmt.executeUpdate();
 
         DBUtill.close(pstmt,conn);
     }
 
     //在数据库中修改个人介绍
-    public void updateInrtoduction(AccountDO accountDO) throws ClassNotFoundException, SQLException {
+    public void updateInrtoduction() throws ClassNotFoundException, SQLException {
         Connection conn=DBUtill.getConn();
         String sql="update t_account set introduction=? where card_id=?;";
         PreparedStatement pstmt=conn.prepareStatement(sql);
-        pstmt.setString(1,accountDO.getIntroduction());
-        pstmt.setString(2,accountDO.getCardId());
+        pstmt.setString(1,AccountDO.accountDO.getIntroduction());
+        pstmt.setString(2,AccountDO.accountDO.getCardId());
         pstmt.executeUpdate();
 
         DBUtill.close(pstmt,conn);
@@ -149,6 +145,7 @@ public class CrowdfundingDAO {
         DBUtill.close(pstmt,conn);
     }
 
+    //在数据库中查询已筹齐的众筹
     public ArrayList<CrowdfundingDO> searchZero() throws SQLException, ClassNotFoundException {
         ArrayList<CrowdfundingDO> crowdfundingDOS=new ArrayList<>();
         Connection conn=DBUtill.getConn();

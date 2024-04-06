@@ -4,8 +4,6 @@ import com.czy.zhongchou.controller.AccountController;
 import com.czy.zhongchou.controller.CrowdfundingController;
 import com.czy.zhongchou.controller.ManageController;
 import com.czy.zhongchou.entity.AccountDO;
-import com.czy.zhongchou.service.AccountService;
-import com.czy.zhongchou.util.DealWithCardId;
 
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -13,11 +11,8 @@ import java.util.Scanner;
 
 public class Show {
     private Scanner sc=new Scanner(System.in);
-    //用来记住登录对象
-    //private AccountDO accountDO= new AccountDO();
     //展示给用户的登录界面
     public void start() throws SQLException, ClassNotFoundException {
-        //System.out.println(this.accountDO.getCardId());
         while (true) {
             System.out.println("==欢迎进入众筹系统==");
             System.out.println("1、登录");
@@ -46,6 +41,7 @@ public class Show {
 
     //展示给用户登录后的界面
     public void showUserCommand(AccountDO accountDO) throws SQLException, ClassNotFoundException {
+        AccountDO.accountDO=accountDO;
         while (true) {
             System.out.println("您可以进行以下操作：");
             System.out.println("1、查询余额");
@@ -58,19 +54,19 @@ public class Show {
             int command=sc.nextInt();
             switch (command){
                 case 1:
-                    System.out.println("您的余额为："+accountDO.getMoney());
+                    System.out.println("您的余额为："+AccountDO.accountDO.getMoney());
                     break;
                 case 2:
                     CrowdfundingController crowdfundingController=new CrowdfundingController();
-                    crowdfundingController.launchCrowdfunding(accountDO);
+                    crowdfundingController.launchCrowdfunding();
                     break;
                 case 3:
                     CrowdfundingController crowdfundingController1=new CrowdfundingController();
-                    crowdfundingController1.searchCrowdfunding(accountDO);
+                    crowdfundingController1.searchCrowdfunding();
                     break;
                 case 4:
                     CrowdfundingController crowdfundingController2=new CrowdfundingController();
-                    crowdfundingController2.update(accountDO);
+                    crowdfundingController2.update();
                     break;
                 case 5:
                     System.out.println("请输入管理密码：");

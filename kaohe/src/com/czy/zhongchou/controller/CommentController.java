@@ -11,17 +11,19 @@ import java.util.Scanner;
 
 public class CommentController {
     Scanner sc=new Scanner(System.in);
-    public void addComment(AccountDO accountDO, CrowdfundingDO crowdfundingDO) throws SQLException, ClassNotFoundException {
+    CommentService commentService=new CommentService();
+
+    //添加评论
+    public void addComment(CrowdfundingDO crowdfundingDO) throws SQLException, ClassNotFoundException {
         System.out.println("请输入您的评论：");
         String comment=sc.next();
-        CommentService commentService=new CommentService();
-        commentService.addComment(accountDO,crowdfundingDO,comment);
+        commentService.addComment(crowdfundingDO,comment);
         System.out.println("评论已添加~");
         return;
     }
 
+    //展示评论
     public void showComment(CrowdfundingDO crowdfundingDO) throws SQLException, ClassNotFoundException {
-        CommentService commentService=new CommentService();
         ArrayList<CommentDO> commentDOS=commentService.showComment(crowdfundingDO);
         if (commentDOS.isEmpty()) {
             System.out.println("目前还没有任何评论~");

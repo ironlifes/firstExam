@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+//操作用户发起但是还未经审核的众筹
 public class ManageDAO {
 
     public void addCrowdfunding(ManageDO manageDO) throws SQLException, ClassNotFoundException {

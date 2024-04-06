@@ -8,6 +8,8 @@ public class AccountDO {
     private String introduction;
     private double money;
 
+    public static AccountDO accountDO=new AccountDO();
+
     public AccountDO() {
     }
 

@@ -15,15 +15,6 @@ public class AccountService {
         accountDAO.addAccount(accountDO);
     }
 
-    public AccountDO getAccountCardId(String cardId) throws SQLException, ClassNotFoundException {
-        AccountDO accountDO=accountDAO.getData(cardId);
-        if(accountDO!=null){
-            return accountDO;
-        }else{
-            return null;
-        }
-    }
-
     public Boolean searchAccount() throws SQLException, ClassNotFoundException {
         if(accountDAO.searchAccount()){
             return true;

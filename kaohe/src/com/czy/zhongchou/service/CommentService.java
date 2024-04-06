@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 public class CommentService {
     CommentDAO commentDAO=new CommentDAO();
-    public void addComment(AccountDO accountDO, CrowdfundingDO crowdfundingDO,String comment) throws SQLException, ClassNotFoundException {
-        commentDAO.addComment(accountDO,crowdfundingDO,comment);
+    public void addComment(CrowdfundingDO crowdfundingDO,String comment) throws SQLException, ClassNotFoundException {
+        commentDAO.addComment(crowdfundingDO,comment);
     }
 
     public ArrayList<CommentDO> showComment(CrowdfundingDO crowdfundingDO) throws SQLException, ClassNotFoundException {

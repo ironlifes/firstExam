@@ -9,20 +9,15 @@ import java.util.Random;
 //工具类
 public class DealWithCardId {
     //获取随机数返回
-    public String createCardId() throws SQLException, ClassNotFoundException {
-        while (true) {
-            String cardId = "";
-            Random r = new Random(); //获取随机数
-            for (int i = 0; i < 8; i++) {
-                int n = r.nextInt(10);
-                cardId += n;//将随机数连接起来
-            }
-            AccountService accountService=new AccountService();
-            AccountDO accountDO = accountService.getAccountCardId(cardId);
-            if (accountDO == null) {
-                return cardId;
-            }
-        }
+    public static String createCardId() throws SQLException, ClassNotFoundException {
+        long seed = System.currentTimeMillis();
+        // 使用种子创建随机数生成器
+        Random random = new Random(seed);
+
+        // 生成八位随机正整数
+        int randomNum =random.nextInt(90000000) + 10000000;
+        String randomNum1=String.valueOf(randomNum);
+        return randomNum1;
     }
 
 }

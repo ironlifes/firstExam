@@ -1,7 +1,6 @@
 package com.czy.zhongchou.service;
 
 import com.czy.zhongchou.dao.CrowdfundingDAO;
-import com.czy.zhongchou.entity.AccountDO;
 import com.czy.zhongchou.entity.CrowdfundingDO;
 import com.czy.zhongchou.entity.ManageDO;
 
@@ -20,24 +19,24 @@ public class CrowdfundingService {
         return crowdfundingDOS;
     }
 
-    public void updateDonate(AccountDO accountDO, double money, CrowdfundingDO crowdfundingDO) throws SQLException, ClassNotFoundException {
-        crowdfundingDAO.updateDonate(accountDO,money,crowdfundingDO);
+    public void updateDonate(double money, CrowdfundingDO crowdfundingDO) throws SQLException, ClassNotFoundException {
+        crowdfundingDAO.updateDonate(money,crowdfundingDO);
     }
 
     public void deleteCrowdfunding() throws SQLException, ClassNotFoundException {
         crowdfundingDAO.deleteCrowdfunding();
     }
 
-    public void updateUserName(AccountDO accountDO) throws SQLException, ClassNotFoundException {
-        crowdfundingDAO.updateUsername(accountDO);
+    public void updateUserName() throws SQLException, ClassNotFoundException {
+        crowdfundingDAO.updateUsername();
     }
 
-    public void updateEmail(AccountDO accountDO) throws SQLException, ClassNotFoundException {
-        crowdfundingDAO.updateEamil(accountDO);
+    public void updateEmail() throws SQLException, ClassNotFoundException {
+        crowdfundingDAO.updateEamil();
     }
 
-    public void updateIntroduction(AccountDO accountDO) throws SQLException, ClassNotFoundException {
-        crowdfundingDAO.updateInrtoduction(accountDO);
+    public void updateIntroduction() throws SQLException, ClassNotFoundException {
+        crowdfundingDAO.updateInrtoduction();
     }
 
     public void deleteCrowdfundindByAdministrator(int number) throws SQLException, ClassNotFoundException {
