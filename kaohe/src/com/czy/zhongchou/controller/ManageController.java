@@ -19,7 +19,8 @@ public class ManageController {
             System.out.println("您可进行以下操作：");
             System.out.println("1、查看未审核的众筹");
             System.out.println("2、查看所有众筹信息");
-            System.out.println("3、退出管理员身份");
+            System.out.println("3、查看交易记录");
+            System.out.println("4、退出管理员身份");
             int command=sc.nextInt();
             switch (command){
                 case 1:
@@ -29,6 +30,10 @@ public class ManageController {
                     showAllCrowdfunding();
                     break;
                 case 3:
+                    RecordController recordController=new RecordController();
+                    recordController.showRecord();
+                    break;
+                case 4:
                     return;
                 default:
                     break;

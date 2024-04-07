@@ -6,6 +6,7 @@ import com.czy.zhongchou.entity.ManageDO;
 import com.czy.zhongchou.service.CommentService;
 import com.czy.zhongchou.service.CrowdfundingService;
 import com.czy.zhongchou.service.ManageService;
+import com.czy.zhongchou.service.RecordService;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -146,6 +147,9 @@ public class CrowdfundingController {
                         break;
                     }
                 }
+
+                RecordService recordService=new RecordService();
+                recordService.addRecord(crowdfundingDO,money);
                 System.out.println("¾è¿î³É¹¦~");
                 return;
             }else{
