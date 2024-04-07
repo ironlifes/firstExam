@@ -7,7 +7,7 @@ import com.czy.zhongchou.service.AccountService;
 import java.sql.SQLException;
 import java.util.Random;
 //工具类
-public class DealWithCardId {
+public class CardIdUtil {
     //获取随机数返回
     public static String createCardId() throws SQLException, ClassNotFoundException {
         long seed = System.currentTimeMillis();
@@ -19,5 +19,4 @@ public class DealWithCardId {
         String randomNum1=String.valueOf(randomNum);
         return randomNum1;
     }
-
 }

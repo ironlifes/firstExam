@@ -3,10 +3,8 @@ package com.czy.zhongchou.controller;
 import com.czy.zhongchou.Vue.Show;
 import com.czy.zhongchou.entity.AccountDO;
 import com.czy.zhongchou.service.AccountService;
-import com.czy.zhongchou.util.DealWithCardId;
+import com.czy.zhongchou.util.CardIdUtil;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AccountController {
@@ -33,7 +31,7 @@ public class AccountController {
             String okPassWord=sc.next();
             if(passWord.equals(okPassWord)){
                 accountDO.setPassWord(passWord);
-                accountDO.setCardId(DealWithCardId.createCardId());
+                accountDO.setCardId(CardIdUtil.createCardId());
                 accountDO.setMoney(1000);
                 System.out.println("恭喜您注册成功，您的账号是："+accountDO.getCardId());
                 System.out.println("您的初始余额是1000.0元~");
