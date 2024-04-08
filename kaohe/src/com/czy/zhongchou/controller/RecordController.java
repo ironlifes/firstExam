@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 public class RecordController {
     Scanner sc=new Scanner(System.in);
+    RecordService recordService=new RecordService();
     public void showRecord() throws Exception {
         while (true) {
             System.out.println("1、查看所有交易记录");
@@ -30,7 +31,6 @@ public class RecordController {
     }
 
     private void showAllRecord() throws Exception {
-        RecordService recordService=new RecordService();
         ArrayList<RecordDO> recordDOS= recordService.showAllRecord();
         if(recordDOS.isEmpty()){
             System.out.println("目前还没有任何交易记录~");
@@ -49,7 +49,6 @@ public class RecordController {
     private void showOneRecord() throws Exception {
         System.out.println("请输入想查询交易记录的捐款者：");
         String name=sc.next();
-        RecordService recordService=new RecordService();
         ArrayList<RecordDO> recordDOS=recordService.showOneRecord(name);
         if(recordDOS.isEmpty()){
             System.out.println("该用户还未进行任何交易~");

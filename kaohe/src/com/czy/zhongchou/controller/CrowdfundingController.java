@@ -40,12 +40,14 @@ public class CrowdfundingController {
 
         ManageService manageService=new ManageService();
         manageService.addCrowdfunding(manageDO);
-
+        System.out.println("众筹发起成功，待管理员审核通过后，您有六小时的时间进行众筹~");
     }
     //查询众筹信息
     public void searchCrowdfunding() throws Exception {
+        //删除超过限制时间的众筹
+        timeDelete();
         //删除已筹齐的众筹
-        delete();
+        moneyDelete();
         ArrayList<CrowdfundingDO> crowdfundingDOS=crowdfundingService.showCrowdfunding();
         //确保有众筹信息再展示
         if (crowdfundingDOS.isEmpty()) {
@@ -93,6 +95,7 @@ public class CrowdfundingController {
                 System.out.println("账号：" + crowdfundingDO.getCardId());
                 System.out.println("原因：" + crowdfundingDO.getReason());
                 System.out.println("众筹金额：" + crowdfundingDO.getMoney());
+                System.out.println("众筹发起时间："+crowdfundingDO.getTime());
                 crowdfundingDO1 = crowdfundingDO;
                 break;
             }
@@ -209,7 +212,7 @@ public class CrowdfundingController {
         crowdfundingService.updateIntroduction();
     }
     //删除已筹齐的众筹
-    private void delete() throws Exception {
+    private void moneyDelete() throws Exception {
         //获取已筹齐的众筹编号
         ArrayList<CrowdfundingDO> crowdfundingDOS1=crowdfundingService.searchZero();
         //删除子表评论表中评论
@@ -219,7 +222,19 @@ public class CrowdfundingController {
             commentService.deleteComment(crowdfundingDO.getNumber());
         }
         //在父表众筹表中删除
-        crowdfundingService.deleteCrowdfunding();
+        crowdfundingService.deleteCrowdfundingByMoney();
+    }
+
+    //删除超过限制时间的众筹
+    private void timeDelete() throws Exception {
+        //获取超过限制时间的众筹编号
+        ArrayList<CrowdfundingDO> crowdfundingDOS=crowdfundingService.searchTime();
+        for (int i = 0; i < crowdfundingDOS.size(); i++) {
+            CrowdfundingDO crowdfundingDO=crowdfundingDOS.get(i);
+            CommentService commentService=new CommentService();
+            commentService.deleteComment(crowdfundingDO.getNumber());
+            crowdfundingService.deleteCrowdfundingByNumber(crowdfundingDO.getNumber());
+        }
     }
 }
 

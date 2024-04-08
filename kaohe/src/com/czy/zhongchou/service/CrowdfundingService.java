@@ -23,8 +23,8 @@ public class CrowdfundingService {
         crowdfundingDAO.updateDonate(money,crowdfundingDO);
     }
 
-    public void deleteCrowdfunding() throws Exception {
-        crowdfundingDAO.deleteCrowdfunding();
+    public void deleteCrowdfundingByMoney() throws Exception {
+        crowdfundingDAO.deleteCrowdfundingByMoney();
     }
 
     public void updateUserName() throws Exception {
@@ -39,12 +39,21 @@ public class CrowdfundingService {
         crowdfundingDAO.updateInrtoduction();
     }
 
-    public void deleteCrowdfundindByAdministrator(int number) throws Exception {
+    public void deleteCrowdfundingByAdministrator(int number) throws Exception {
         crowdfundingDAO.deleteCrowdfundingByAdministrator(number);
     }
 
     public ArrayList<CrowdfundingDO> searchZero() throws Exception {
         ArrayList<CrowdfundingDO> crowdfundingDOS=crowdfundingDAO.searchZero();
         return crowdfundingDOS;
+    }
+
+    public ArrayList<CrowdfundingDO> searchTime() throws Exception {
+        ArrayList<CrowdfundingDO> crowdfundingDOS=crowdfundingDAO.searchTime();
+        return crowdfundingDOS;
+    }
+
+    public void deleteCrowdfundingByNumber(int number) throws Exception {
+        crowdfundingDAO.deleteCrowdfundingByNumber(number);
     }
 }

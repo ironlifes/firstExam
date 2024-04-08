@@ -39,6 +39,7 @@ public class CrowdfundingDAO {
             String reason=rs.getString("reason");
             double money=rs.getDouble("money");
             int number=rs.getInt("number");
+            Timestamp time=rs.getTimestamp("time");
 
             //封装对象，以便后续直接使用
             CrowdfundingDO crowdfundingDO=new CrowdfundingDO();
@@ -49,6 +50,7 @@ public class CrowdfundingDAO {
             crowdfundingDO.setReason(reason);
             crowdfundingDO.setMoney(money);
             crowdfundingDO.setNumber(number);
+            crowdfundingDO.setTime(time);
             crowdfundingDOS.add(crowdfundingDO);
         }
         DruidUtil.close(rs,pstmt,conn);
@@ -89,7 +91,7 @@ public class CrowdfundingDAO {
     }
 
     //在数据库中删除已筹齐的众筹
-    public void deleteCrowdfunding() throws Exception {
+    public void deleteCrowdfundingByMoney() throws Exception {
         Connection conn= DruidUtil.getConn();
         String sql="delete from t_crowdfunding where money=0";
         PreparedStatement pstmt=conn.prepareStatement(sql);
@@ -160,5 +162,34 @@ public class CrowdfundingDAO {
         }
         DruidUtil.close(rs,pstmt,conn);
         return crowdfundingDOS;
+    }
+
+    //获取超过限制时间的众筹编号
+    public ArrayList<CrowdfundingDO> searchTime() throws Exception {
+        ArrayList<CrowdfundingDO> crowdfundingDOS=new ArrayList<>();
+        Connection conn=DruidUtil.getConn();
+        String sql="select * from t_crowdfunding where time<(now() - interval 6 hour);";
+        PreparedStatement pstmt=conn.prepareStatement(sql);
+        ResultSet rs=pstmt.executeQuery();
+        while(rs.next()){
+            int number=rs.getInt("number");
+
+            CrowdfundingDO crowdfundingDO=new CrowdfundingDO();
+            crowdfundingDO.setNumber(number);
+            crowdfundingDOS.add(crowdfundingDO);
+        }
+        DruidUtil.close(rs,pstmt,conn);
+        return crowdfundingDOS;
+    }
+
+    //删除对应编号的众筹
+    public void deleteCrowdfundingByNumber(int number) throws Exception {
+        Connection conn= DruidUtil.getConn();
+        String sql="delete from t_crowdfunding where number=?;";
+        PreparedStatement pstmt=conn.prepareStatement(sql);
+        pstmt.setInt(1,number);
+        pstmt.executeUpdate();
+
+        DruidUtil.close(pstmt,conn);
     }
 }

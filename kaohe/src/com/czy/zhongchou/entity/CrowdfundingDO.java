@@ -1,5 +1,7 @@
 package com.czy.zhongchou.entity;
 
+import java.sql.Timestamp;
+
 public class CrowdfundingDO {
     private String cardId;
     private String name;
@@ -8,11 +10,12 @@ public class CrowdfundingDO {
     private String reason;
     private double money;
     private int number;
+    private Timestamp time;
 
     public CrowdfundingDO() {
     }
 
-    public CrowdfundingDO(String cardId, String name, int age, String sex, String reason, double money, int number) {
+    public CrowdfundingDO(String cardId, String name, int age, String sex, String reason, double money, int number, Timestamp time) {
         this.cardId = cardId;
         this.name = name;
         this.age = age;
@@ -20,6 +23,7 @@ public class CrowdfundingDO {
         this.reason = reason;
         this.money = money;
         this.number = number;
+        this.time = time;
     }
 
     public String getCardId() {
@@ -76,5 +80,13 @@ public class CrowdfundingDO {
 
     public void setNumber(int number) {
         this.number = number;
+    }
+
+    public Timestamp getTime() {
+        return time;
+    }
+
+    public void setTime(Timestamp time) {
+        this.time = time;
     }
 }

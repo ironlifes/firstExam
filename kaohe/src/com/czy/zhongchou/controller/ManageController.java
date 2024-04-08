@@ -13,6 +13,7 @@ import java.util.Scanner;
 
 public class ManageController {
     Scanner sc=new Scanner(System.in);
+    CrowdfundingService crowdfundingService=new CrowdfundingService();
     //管理员界面
     public void administrator() throws Exception {
         while (true) {
@@ -100,18 +101,10 @@ public class ManageController {
 
     //管理员身份查询众筹信息
     private void showAllCrowdfunding() throws Exception {
-        CrowdfundingService crowdfundingService=new CrowdfundingService();
-        //删除已筹齐的众筹信息
-        //获取已筹齐的众筹编号
-        ArrayList<CrowdfundingDO> crowdfundingDOS1=crowdfundingService.searchZero();
-        //删除子表评论表中评论
-        for (int i = 0; i < crowdfundingDOS1.size(); i++) {
-            CrowdfundingDO crowdfundingDO=crowdfundingDOS1.get(i);
-            CommentService commentService=new CommentService();
-            commentService.deleteComment(crowdfundingDO.getNumber());
-        }
-        //在父表众筹表中删除
-        crowdfundingService.deleteCrowdfunding();
+        //删除超过限制时间的众筹
+        timeDelete();
+        //删除已筹齐的众筹
+        moneyDelete();
         ArrayList<CrowdfundingDO> crowdfundingDOS=crowdfundingService.showCrowdfunding();
         if (crowdfundingDOS.isEmpty()) {
             System.out.println("目前还没有任何众筹信息~");
@@ -126,6 +119,7 @@ public class ManageController {
             System.out.println("账号：" + crowdfundingDO.getCardId());
             System.out.println("原因：" + crowdfundingDO.getReason());
             System.out.println("众筹金额：" + crowdfundingDO.getMoney());
+            System.out.println("众筹发起时间："+crowdfundingDO.getTime());
             System.out.println();
         }
         secondChoice();
@@ -147,7 +141,7 @@ public class ManageController {
                     commentService.deleteComment(number);
                     //删除父表信息
                     CrowdfundingService crowdfundingService=new CrowdfundingService();
-                    crowdfundingService.deleteCrowdfundindByAdministrator(number);
+                    crowdfundingService.deleteCrowdfundingByAdministrator(number);
                     System.out.println("撤销成功~");
                     return;
                 case 2:
@@ -156,5 +150,28 @@ public class ManageController {
                     break;
             }
         }
+    }
+
+    private void timeDelete() throws Exception {
+        ArrayList<CrowdfundingDO> crowdfundingDOS=crowdfundingService.searchTime();
+        for (int i = 0; i < crowdfundingDOS.size(); i++) {
+            CrowdfundingDO crowdfundingDO=crowdfundingDOS.get(i);
+            CommentService commentService=new CommentService();
+            commentService.deleteComment(crowdfundingDO.getNumber());
+            crowdfundingService.deleteCrowdfundingByNumber(crowdfundingDO.getNumber());
+        }
+    }
+
+    private void moneyDelete() throws Exception {
+        //获取已筹齐的众筹编号
+        ArrayList<CrowdfundingDO> crowdfundingDOS1=crowdfundingService.searchZero();
+        //删除子表评论表中评论
+        for (int i = 0; i < crowdfundingDOS1.size(); i++) {
+            CrowdfundingDO crowdfundingDO=crowdfundingDOS1.get(i);
+            CommentService commentService=new CommentService();
+            commentService.deleteComment(crowdfundingDO.getNumber());
+        }
+        //在父表众筹表中删除
+        crowdfundingService.deleteCrowdfundingByMoney();
     }
 }
